@@ -12,7 +12,6 @@ const Hero = () => {
       nextSection.scrollIntoView({ behavior: "smooth" });
     }
   };
-
   return (
     <div className="hero">
       <div className="flex-1 pt-36 padding-x">
@@ -27,14 +26,14 @@ const Hero = () => {
         <CustomButton
         title='Connect Wallet'
         btnType='button'
-        containerStyles='text-primary-blue rounded-full bg-black min-w-[130px] '
-        textStyles='text-white'
+        containerStyles='font-bold hover:brightness-200 transition duration-300 ease-in-out m-2 bg-gray-200 border-2 border-gray-700 rounded-full text-xl px-6 py-4 '
+        textStyles='text-black'
       />
       </div>
       <div className="hero__image-container">
-        <div className="hero__image">
+        {/* <div className="hero__image">
           <Image src="/hero.png" alt="hero" fill className="object-contain" />
-        </div>
+        </div> */}
 
         <div className="hero__image-overlay" />
       </div>
