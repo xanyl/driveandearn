@@ -15,8 +15,7 @@ function authenticate() {
     },
     redirectTo: "/home",
     onFinish: () => {
-    
-      window.location.href="/home";
+      window.location.href = "/home";
     },
     userSession,
   });
@@ -34,14 +33,12 @@ const ConnectWallet = () => {
     return (
       <div className="Container">
         <CustomButton
-        handleClick={disconnect}
-        title="Disconnect Wallet"
-        btnType="button"
-        containerStyles="text-black hover:brightness-200 transition duration-300 ease-in-out m-2 bg-gray-700 border-2 border-white-100 rounded-full text-xl px-6 py-4 "
-        textStyles="text-white"
-      />
-        {/* <p>mainnet: {userSession.loadUserData().profile.stxAddress.mainnet}</p>
-        <p>testnet: {userSession.loadUserData().profile.stxAddress.testnet}</p> */}
+          handleClick={disconnect}
+          title="Disconnect Wallet"
+          btnType="button"
+          containerStyles="text-black hover:brightness-200 transition duration-300 ease-in-out m-2 bg-gray-700 border-2 border-white-100 rounded-full text-xl px-6 py-4 "
+          textStyles="text-white"
+        />
       </div>
     );
   }
