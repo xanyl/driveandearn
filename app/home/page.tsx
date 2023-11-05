@@ -32,8 +32,6 @@ const ShowDetails = () => {
  
 
   return (
-    
       <ShowDetails />
-    
   );
 }
