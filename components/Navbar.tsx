@@ -6,12 +6,12 @@ import { usePathname } from "next/navigation";
 const NavBar = () => {
   const currentRoute = usePathname();
   const linkStyle =
-    "px-4 py-2 txt-bold rounded-md hover:bg-blue-300 transition duration-300 ease-in-out";
+    "px-4 py-2 text-lg rounded-md font-semibold hover:bg-blue-300 transition duration-300 ease-in-out";
   const activeStyle = linkStyle + " text-black bg-gray-300";
   const nonActiveStyle = linkStyle + " text-black";
   return (
-    <header className="w-full  absolute z-10">
-      <nav className="max-w-[1440px] mx-auto flex justify-between items-center sm:px-16 px-6 py-4 bg-transparent ">
+    <header className="w-full top-0 fixed z-10">
+      <nav className="max-w-[1440px] h-24 mx-auto flex justify-between items-center sm:px-16 px-6 py-4 bg-transparent">
         <Link href="/">
           {/* <Image
           src='/logo.svg'
@@ -20,13 +20,13 @@ const NavBar = () => {
           height={18}
           className='object-contain'
         /> */}
-          
+          <div className="flex items-center">
             <span className="text-black text-3xl font-bold mr-2">
               RideToEarn
             </span>
-          
+          </div>
         </Link>
-
+         
         <Link
           href="/"
           className={currentRoute === "/" ? activeStyle : nonActiveStyle}
@@ -45,7 +45,7 @@ const NavBar = () => {
         >
           Contact
         </Link>
-        {/* {userSession.isUserSignedIn() ? (
+        {userSession.isUserSignedIn() ? (
           <Link
             href="/home"
             className={currentRoute === "/home" ? activeStyle : nonActiveStyle}
@@ -54,7 +54,7 @@ const NavBar = () => {
           </Link>
         ) : (
           <></>
-        )} */}
+        )}
 
         <ConnectWallet />
       </nav>

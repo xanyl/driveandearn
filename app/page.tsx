@@ -1,15 +1,12 @@
 
+import { Hero } from "@components";
 import { HomeProps } from "@types";
-import { Footer, Hero, NavBar } from "@components";
-import { LayoutRouterContext } from "next/dist/shared/lib/app-router-context";
-import { Component } from "react";
-export default async function Home({ searchParams }: HomeProps) {
+
+export default async function Home() {
 
   return (
-    <main className="overflow-hidden">
-     
-        
-    
-    </main>
+    <>
+      <Hero />
+    </>
   );
 }

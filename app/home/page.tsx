@@ -36,7 +36,7 @@ const ShowDetails = () => {
       // <ShowDetails />
 
 
-    <div>
+    <div className="mt-24 pt-10 flex justify-center">
      Hello
       {/* <div>
       <div className="flex flex-wrap justify-center gap-4">
@@ -58,7 +58,7 @@ const ShowDetails = () => {
         </div>
       </div>
       </div> */}
-      
+      <ShowDetails />
     </div>
   );
 };

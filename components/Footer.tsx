@@ -1,8 +1,8 @@
 import Link from "next/link";
 
 const Footer = () => (
-  <footer className="flex flex-col text-black-100  mt-5 border-t border-gray-100">
-    <div className="flex justify-between items-center flex-wrap mt-10 border-t border-gray-100 sm:px-16 px-6 py-10">
+  
+    <div className=" w-[100%] flex justify-between items-center flex-wrap  absolute bottom-0 sm:px-16 px-6 py-10">
       <p>@2023 Drive And Earn. All rights reserved</p>
 
       <div className="footer__copyrights-link">
@@ -14,7 +14,7 @@ const Footer = () => (
         </Link>
       </div>
     </div>
-  </footer>
+  
 );
 
 export default Footer;
