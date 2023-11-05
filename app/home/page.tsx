@@ -2,6 +2,7 @@
 import React, { useEffect, useState } from "react";
 import { AppConfig, UserSession, authenticate } from "@stacks/connect";
 
+
 const appConfig = new AppConfig(["store_write", "publish_data"]);
 export const userSession = new UserSession({ appConfig });
 
@@ -32,6 +33,34 @@ const ShowDetails = () => {
  
 
   return (
-      <ShowDetails />
+      // <ShowDetails />
+
+
+    <div>
+     Hello
+      {/* <div>
+      <div className="flex flex-wrap justify-center gap-4">
+        <div className="option-card bg-gray-100 p-4 rounded-md text-center cursor-pointer hover:bg-gray-200">
+          <img src="/music-image.jpg" alt="Music" className="w-full rounded-md" />
+          <h3 className="mt-2">Music</h3>
+        </div>
+        <div className="option-card bg-gray-100 p-4 rounded-md text-center cursor-pointer hover:bg-gray-200">
+          <img src="/podcast-image.jpg" alt="Podcast" className="w-full rounded-md" />
+          <h3 className="mt-2">Podcast</h3>
+        </div>
+        <div className="option-card bg-gray-100 p-4 rounded-md text-center cursor-pointer hover:bg-gray-200">
+          <img src="/stories-image.jpg" alt="Stories" className="w-full rounded-md" />
+          <h3 className="mt-2">Stories</h3>
+        </div>
+        <div className="option-card bg-gray-100 p-4 rounded-md text-center cursor-pointer hover:bg-gray-200">
+          <img src="/movies-image.jpg" alt="Movies" className="w-full rounded-md" />
+          <h3 className="mt-2">Movies</h3>
+        </div>
+      </div>
+      </div> */}
+      
+    </div>
   );
-}
+};
+
+
