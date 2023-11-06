@@ -1,66 +1,62 @@
 "use client";
 import React, { useEffect, useState } from "react";
 import { AppConfig, UserSession, authenticate } from "@stacks/connect";
-
+import Image from "next/image";
 
 const appConfig = new AppConfig(["store_write", "publish_data"]);
 export const userSession = new UserSession({ appConfig });
 
-
 const ShowDetails = () => {
-    const [mounted, setMounted] = useState(false);
-    useEffect(() => setMounted(true), []);
-  
-    if (mounted && userSession.isUserSignedIn()) {
-      return (
-        <div className="Container">
-          <p>mainnet: {userSession.loadUserData().profile.stxAddress.mainnet}</p>
-          <p>testnet: {userSession.loadUserData().profile.stxAddress.testnet}</p>
-        </div>
-      );
-    }
-    else{
-        return(
-        <div>
-          <p>Connect your wallet to see your STX addresses</p>
-        </div>
-      )
-    }
-  };
+  const [mounted, setMounted] = useState(false);
+  useEffect(() => setMounted(true), []);
 
-  export default function page() {
-   
- 
-
-  return (
-      // <ShowDetails />
-
-
-    <div className="mt-24 pt-10 flex justify-center">
-     Hello
-      {/* <div>
-      <div className="flex flex-wrap justify-center gap-4">
-        <div className="option-card bg-gray-100 p-4 rounded-md text-center cursor-pointer hover:bg-gray-200">
-          <img src="/music-image.jpg" alt="Music" className="w-full rounded-md" />
-          <h3 className="mt-2">Music</h3>
-        </div>
-        <div className="option-card bg-gray-100 p-4 rounded-md text-center cursor-pointer hover:bg-gray-200">
-          <img src="/podcast-image.jpg" alt="Podcast" className="w-full rounded-md" />
-          <h3 className="mt-2">Podcast</h3>
-        </div>
-        <div className="option-card bg-gray-100 p-4 rounded-md text-center cursor-pointer hover:bg-gray-200">
-          <img src="/stories-image.jpg" alt="Stories" className="w-full rounded-md" />
-          <h3 className="mt-2">Stories</h3>
-        </div>
-        <div className="option-card bg-gray-100 p-4 rounded-md text-center cursor-pointer hover:bg-gray-200">
-          <img src="/movies-image.jpg" alt="Movies" className="w-full rounded-md" />
-          <h3 className="mt-2">Movies</h3>
-        </div>
+  if (mounted && userSession.isUserSignedIn()) {
+    return (
+      <div className="flex  flex-col justify-center items-center">
+        <p className="font-bold">mainnet: {userSession.loadUserData().profile.stxAddress.mainnet}</p>
+        <p className="font-bold">testnet: {userSession.loadUserData().profile.stxAddress.testnet}</p>
       </div>
-      </div> */}
-      <ShowDetails />
-    </div>
-  );
+    );
+  } else {
+    return (
+      <div className="flex justify-center text-3xl font-bold items-center align-center">
+        <p>Connect your wallet to see your custom dashboard</p>
+      </div>
+    );
+  }
 };
 
+export default function page() {
+  return (
+    // <ShowDetails />
 
+    <div className="mt-24 pt-10 flex justify-center podca">
+      <div>
+        <ShowDetails />
+        <div className="flex flex-col justify-center items-center pt-10 text-3xl font-bold">
+          <p>How would you like to be entertained?</p>
+        </div>
+      <div className="flex flex-wrap justify-center gap-4 mt-10">
+        <div className=" flex flex-col justify-end bg-gray-100 p-4 rounded-md text-center cursor-pointer hover:bg-gray-200">
+          <Image src="/music-image.png" height={300} width={200} alt="Music" className="w-full rounded-lg" />
+          <h3 className="mt-2 text-xl font-bold bottom-4 ">Music</h3>
+        </div>
+        <div className="flex flex-col justify-end bg-gray-100 p-4 rounded-lg text-center cursor-pointer hover:bg-gray-200">
+        <Image src="/podcast-image.png" height={300} width={200} alt="podcast" className="w-full rounded-lg" />
+          <h3 className="mt-2 text-xl font-bold bottom-4">Podcast</h3>
+        </div>
+        <div className="flex flex-col justify-end bg-gray-100 p-4 rounded-lg text-center cursor-pointer hover:bg-gray-200">
+        <Image src="/storie-image.jpg" height={300} width={200} alt="stories" className="w-full rounded-lg" />
+          <h3 className="mt-2 text-xl font-bold bottom-4">Stories</h3>
+        </div>
+        <div className="flex flex-col justify-end bg-gray-100 p-4 rounded-lg text-center cursor-pointer hover:bg-gray-200">
+        <Image src="/movies-image.png" height={300} width={200} alt="stories" className="w-full rounded-lg" />
+          <h3 className="mt-2 text-xl font-bold bottom-4">Movies</h3>
+        </div>
+      </div>
+      
+      </div>
+      
+    </div>
+  );
+}

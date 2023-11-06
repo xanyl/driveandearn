@@ -11,7 +11,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
     <html lang="en">
       <NavBar />
       <body>{children}</body>
-     <Footer />
+      <Footer />
     </html>
   );
 }
