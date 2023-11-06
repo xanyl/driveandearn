@@ -2,6 +2,6 @@ import React from 'react'
 
 export default function MovieCard() {
   return (
-    <div>MovieCard</div>
+    <div className='flex flex-col'>MovieCard</div>
   )
 }
