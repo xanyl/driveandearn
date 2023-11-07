@@ -11,7 +11,7 @@ const NavBar = () => {
   const nonActiveStyle = linkStyle + " text-black";
   return (
     <header className="w-full top-0 fixed z-10">
-      <nav className="max-w-[1440px] h-24 mx-auto flex justify-between items-center sm:px-16 px-6 py-4 bg-transparent">
+      <nav className="max-w-[100%] h-24 mx-auto flex justify-between items-center sm:px-16 px-6 py-4 bg-white">
         <Link href="/">
           {/* <Image
           src='/logo.svg'

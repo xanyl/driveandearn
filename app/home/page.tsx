@@ -15,7 +15,9 @@ const ShowDetails = () => {
     return (
       <div>
         <div className="flex  flex-col justify-center items-center">
-          <span className="font-bold">Hi, {userSession.loadUserData().profile.name}</span>
+          <span className="font-bold">
+            Hi, {userSession.loadUserData().profile.name}
+          </span>
           <p className="font-bold">
             mainnet: {userSession.loadUserData().profile.stxAddress.mainnet}
           </p>
@@ -73,7 +75,7 @@ const ShowDetails = () => {
     );
   } else {
     return (
-      <div className="flex justify-center text-3xl font-bold items-center align-center">
+      <div className="flex text-3xl font-bold flex-row">
         <p>Connect your wallet to see your custom dashboard</p>
       </div>
     );
@@ -84,7 +86,7 @@ export default function page() {
   return (
     // <ShowDetails />
 
-    <div className="mt-24 pt-10 flex justify-center podca">
+    <div className="mt-24 pt-10 flex justify-center min-h-screen">
       <div>
         <ShowDetails />
       </div>

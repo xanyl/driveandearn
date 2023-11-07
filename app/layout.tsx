@@ -9,9 +9,13 @@ export const metadata = {
 export default function Layout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en">
-      <NavBar />
-      <body>{children}</body>
-      <Footer />
+      <div className="flex flex-col">
+        <NavBar />
+        
+          <body className="flex-1">{children}</body>
+        
+        <Footer />
+      </div>
     </html>
   );
 }

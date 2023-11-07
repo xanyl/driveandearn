@@ -3,7 +3,7 @@ import React from 'react'
 
 export default function ContactPage() {
   return (
-    <div className='mt-36 flex justify-center items-center '>
+    <div className='text-3xl font-bold flex justify-center items-center min-h-screen'>
       Contact Page
     </div>
   )
