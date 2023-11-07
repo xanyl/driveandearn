@@ -1,9 +1,16 @@
+/* The code is defining a React functional component called `MediaGallery`. It is a gallery component
+that displays a grid of media cards (images) and allows the user to select a media card. When a
+media card is selected, a modal is displayed with the corresponding media component (e.g.,
+MusicPage, PodcastPage, etc.). The component keeps track of the time spent on each media selection
+and updates the `totalSeconds` state passed as a prop. The component also includes event handlers
+for closing the modal and submitting the form within the media component. */
 import { useEffect, useState } from "react"; // Replace with your actual MusicComponent
 import MediaCard from "./MediaCard";
 import MusicPage from "@components/mediapages/MusicPage";
 import PodcastPage from "@components/mediapages/PodcastPage";
 import StoryPage from "@components/mediapages/StoryPage";
 import MovieCard from "@components/mediapages/MovieCard";
+
 interface MediaData {
   src: string;
   alt: string;
@@ -33,7 +40,15 @@ const mediaData: MediaData[] = [
   },
 ];
 
-const MediaGallery: React.FC = (updateTimeSpent) => {
+interface MediaGalleryProps {
+  totalSeconds: number;
+  setTotalSeconds: React.Dispatch<React.SetStateAction<number>>;
+}
+
+const MediaGallery: React.FC<MediaGalleryProps> = ({
+  totalSeconds,
+  setTotalSeconds,
+}) => {
   const [selectedMedia, setSelectedMedia] = useState<string | null>(null);
   const [timeStart, setTimeStart] = useState<number | null>(null);
   const [timeSpent, setTimeSpent] = useState<number>(0);
@@ -54,10 +69,15 @@ const MediaGallery: React.FC = (updateTimeSpent) => {
       const remainingSeconds = totalSeconds % 3600;
       const minutes = Math.floor(remainingSeconds / 60);
       const seconds = remainingSeconds % 60;
+      setTotalSeconds(totalSeconds);
 
-      console.log(
-        `Time spent: ${hours} hours, ${minutes} minutes, ${seconds} seconds`
-      );
+      // console.log(
+      //   "Total seconds spent on media: ",
+      //   totalSeconds,
+      //   hours,
+      //   minutes,
+      //   seconds
+      // );
     }
     setSelectedMedia(null);
   };
@@ -80,7 +100,7 @@ const MediaGallery: React.FC = (updateTimeSpent) => {
 
   const handleSubmit = () => {
     // Perform actions on submitting the form within MusicPage
-    console.log("Submit action performed");
+    closeModal();
   };
   const getMediaComponent = () => {
     switch (selectedMedia) {
@@ -89,8 +109,7 @@ const MediaGallery: React.FC = (updateTimeSpent) => {
       case "Podcast":
         return <PodcastPage />;
       case "Stories":
-        
-        return <StoryPage/>;
+        return <StoryPage />;
       case "Movies":
         return <MovieCard />;
       default:

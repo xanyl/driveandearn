@@ -1,3 +1,7 @@
+/**
+ * The above code is a React component that handles connecting and disconnecting a wallet using the
+ * Stacks Connect library.
+ */
 "use client";
 
 import React, { useEffect, useState } from "react";

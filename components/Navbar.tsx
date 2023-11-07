@@ -1,3 +1,5 @@
+/* The code you provided is a TypeScript React component called `NavBar`. It is responsible for
+rendering a navigation bar at the top of the page. */
 "use client";
 import Link from "next/link";
 import ConnectWallet, { userSession } from "./ConnectWallet";

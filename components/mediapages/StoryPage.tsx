@@ -1,3 +1,5 @@
+/* The code you provided is a TypeScript React component called `StoryPage`. It is a form that allows
+users to generate a story based on keywords and language selection. */
 "use client";
 import React, { useState } from "react";
 import axios from "axios";
