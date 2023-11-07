@@ -79,7 +79,7 @@ const StoryPage = () => {
   return (
     <div className="bg-gray-100 flex flex-col items-center justify-center rounded-md">
       <h1 className="text-4xl font-bold my-4">Story App</h1>
-      <div className="bg-white p-8 rounded shadow-md w-96 max-w-full">
+      <div className="bg-white p-8 rounded shadow-md w-96 max-w-full mb-4">
         <label htmlFor="keywords" className="block mb-2">
           Keywords:
         </label>
