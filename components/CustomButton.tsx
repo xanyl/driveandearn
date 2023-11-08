@@ -1,3 +1,4 @@
+/* The code is defining a React component called `Button`. */
 import Image from "next/image";
 
 import { CustomButtonProps } from "@types";

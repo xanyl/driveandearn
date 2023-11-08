@@ -8,8 +8,8 @@ import { useEffect, useState } from "react"; // Replace with your actual MusicCo
 import MediaCard from "./MediaCard";
 import MusicPage from "@components/mediapages/MusicPage";
 import PodcastPage from "@components/mediapages/PodcastPage";
-import StoryPage from "@components/mediapages/StoryPage";
 import MovieCard from "@components/mediapages/MovieCard";
+import StoryPage from "@components/mediapages/StoryPage";
 
 interface MediaData {
   src: string;
@@ -65,10 +65,6 @@ const MediaGallery: React.FC<MediaGalleryProps> = ({
       setTimeStart(null);
 
       const totalSeconds = Math.floor((timeSpent + timeDifference) / 1000);
-      const hours = Math.floor(totalSeconds / 3600);
-      const remainingSeconds = totalSeconds % 3600;
-      const minutes = Math.floor(remainingSeconds / 60);
-      const seconds = remainingSeconds % 60;
       setTotalSeconds(totalSeconds);
 
       // console.log(
