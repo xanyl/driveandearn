@@ -1,6 +1,6 @@
 /* The code you provided is a TypeScript React component called `StoryPage`. It is a form that allows
 users to generate a story based on keywords and language selection. */
-"use client";
+
 import React, { useState } from "react";
 import axios from "axios";
 
@@ -41,13 +41,38 @@ const StoryPage = () => {
 
   const generateStory = async () => {
     setLoading(true);
+    setError("");
     try {
       const apiKey = process.env.NEXT_PUBLIC_OPENAI_API_KEY;
       console.log(apiKey);
 
-      const response = await axios.post(
-        "https://api.openai.com/v1/engines/davinci/completions",
-        {
+      // const response = await axios.post(
+      //   "https://api.openai.com/v1/engines/davinci/completions",
+      //   {
+      //     prompt: `Once upon a time, in a land far, far away, there was ${keywords.join(
+      //       ", "
+      //     )}.`,
+      //     max_tokens: 500,
+      //     temperature: 0.5,
+      //     stop: "\n\n",
+      //     n: 1,
+      //     language: language.toLowerCase(),
+      //   },
+      //   {
+      //     headers: {
+      //       "Content-Type": "application/json",
+      //       Authorization: `Bearer ${apiKey}`,
+      //     },
+      //   }
+      // );
+      const response = await fetch("https://api.openai.com/v1/engines/davinci/completions", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${apiKey}`,
+        },
+
+        body: JSON.stringify({
           prompt: `Once upon a time, in a land far, far away, there was ${keywords.join(
             ", "
           )}.`,
@@ -56,18 +81,15 @@ const StoryPage = () => {
           stop: "\n\n",
           n: 1,
           language: language.toLowerCase(),
-        },
-        {
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${apiKey}`,
-          },
-        }
-      );
-      //   console.log(response.data);
+        }),
+      });
 
-      if (response.data.choices && response.data.choices.length > 0) {
-        setStory(response.data.choices[0].text);
+      if (response.ok) {
+        const data = await response.json();
+
+        if (data.choices && data.choices.length > 0) {
+          setStory(data.choices[0].text);
+        }
       }
 
       setLoading(false);
