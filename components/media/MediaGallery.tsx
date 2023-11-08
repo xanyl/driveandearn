@@ -63,17 +63,8 @@ const MediaGallery: React.FC<MediaGalleryProps> = ({
       const timeDifference = currentTime - timeStart;
       setTimeSpent(timeSpent + timeDifference); // Accumulate time spent on each media selection
       setTimeStart(null);
-
       const totalSeconds = Math.floor((timeSpent + timeDifference) / 1000);
       setTotalSeconds(totalSeconds);
-
-      // console.log(
-      //   "Total seconds spent on media: ",
-      //   totalSeconds,
-      //   hours,
-      //   minutes,
-      //   seconds
-      // );
     }
     setSelectedMedia(null);
   };

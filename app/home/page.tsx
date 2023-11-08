@@ -1,8 +1,10 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import { AppConfig, UserSession, authenticate } from "@stacks/connect";
-import Image from "next/image";
+import { AppConfig, UserSession } from "@stacks/connect";
+
 import MediaGallery from "@components/media/MediaGallery";
+import toast, { Toaster } from "react-hot-toast";
+import CheckAmount from "@components/CheckAmount";
 
 const appConfig = new AppConfig(["store_write", "publish_data"]);
 export const userSession = new UserSession({ appConfig });
@@ -10,6 +12,7 @@ export const userSession = new UserSession({ appConfig });
 const ShowDetails = () => {
   const [mounted, setMounted] = useState(false);
   const [totalSeconds, setTotalSeconds] = useState<number>(0);
+  const [showCheckAmount, setShowCheckAmount] = useState(false);
   useEffect(() => setMounted(true), []);
 
   const calcTimeSpent = () => {
@@ -20,9 +23,29 @@ const ShowDetails = () => {
     return { hours, minutes, seconds };
   };
 
-  if (mounted && userSession.isUserSignedIn()) { 
-    console.log(totalSeconds);
+  if (mounted && userSession.isUserSignedIn()) {
     const { hours, minutes, seconds } = calcTimeSpent();
+
+    //Toast Messages
+    toast.error(
+      "You need to be engaged for at least 5 minutes to get rewarded."
+    );
+    const timeSpentMessage =
+      hours === 0 && minutes === 0
+        ? `You spent ${seconds} seconds`
+        : hours === 0
+        ? `You spent ${minutes} minutes and ${seconds} seconds`
+        : `You spent ${hours} hours, ${minutes} minutes, and ${seconds} seconds`;
+    toast(timeSpentMessage);
+    const earnedAmount = Math.floor(totalSeconds / 1);
+    const handleCheckHere = () => {
+      console.log(`Checked rewards for earning $${earnedAmount}`);
+      setShowCheckAmount(true);
+    };
+    const handleBackClick = () => {
+      setShowCheckAmount(false); 
+    };
+
     return (
       <div>
         <div className="flex  flex-col justify-center items-center">
@@ -39,60 +62,28 @@ const ShowDetails = () => {
         <div className="flex flex-col justify-center items-center pt-10 text-3xl font-bold">
           <p>How would you like to be entertained?</p>
           <span className="text-xl font-bold flex flex-col items-center gap-1 mt-4">
-            {hours === 0 && minutes === 0
-              ? `You spent ${seconds} seconds`
-              : hours === 0
-              ? `You spent ${minutes} minutes and ${seconds} seconds`
-              : `You spent ${hours} hours, ${minutes} minutes, and ${seconds} seconds`}
-
-            {totalSeconds > 0 && totalSeconds < 300 ? (
-              <span className="text-red-500">
-                You need to be engaged for at least 5 minutes to get rewarded.
-              </span>
-            ) : null}
+            {totalSeconds > 0 && totalSeconds < 1 ? (
+              <Toaster position="bottom-right" reverseOrder={false} />
+            ) : (
+              <div className="flex flex-col">
+                <p>You earned ${earnedAmount}.</p>
+                <button
+                  onClick={handleCheckHere}
+                  className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-lg mt-2"
+                >
+                  Check Here
+                </button>
+              </div>
+            )}
           </span>
+          {showCheckAmount && (
+            <CheckAmount
+              earnedAmount={earnedAmount}
+              onBackClick={handleBackClick}
+            />
+          )}
         </div>
         <div className="flex flex-wrap justify-center gap-4 mt-10">
-          {/* <div className=" flex flex-col justify-end bg-gray-100 p-4 rounded-md text-center cursor-pointer hover:bg-gray-200">
-            <Image
-              src="/music-image.png"
-              height={300}
-              width={200}
-              alt="Music"
-              className="w-full rounded-lg"
-            />
-            <h3 className="mt-2 text-xl font-bold bottom-4 ">Music</h3>
-          </div>
-          <div className="flex flex-col justify-end bg-gray-100 p-4 rounded-lg text-center cursor-pointer hover:bg-gray-200">
-            <Image
-              src="/podcast-image.png"
-              height={300}
-              width={200}
-              alt="podcast"
-              className="w-full rounded-lg"
-            />
-            <h3 className="mt-2 text-xl font-bold bottom-4">Podcast</h3>
-          </div>
-          <div className="flex flex-col justify-end bg-gray-100 p-4 rounded-lg text-center cursor-pointer hover:bg-gray-200">
-            <Image
-              src="/storie-image.jpg"
-              height={300}
-              width={200}
-              alt="stories"
-              className="w-full rounded-lg"
-            />
-            <h3 className="mt-2 text-xl font-bold bottom-4">Stories</h3>
-          </div>
-          <div className="flex flex-col justify-end bg-gray-100 p-4 rounded-lg text-center cursor-pointer hover:bg-gray-200">
-            <Image
-              src="/movies-image.png"
-              height={300}
-              width={200}
-              alt="stories"
-              className="w-full rounded-lg"
-            />
-            <h3 className="mt-2 text-xl font-bold bottom-4">Movies</h3>
-          </div> */}
           <MediaGallery
             totalSeconds={totalSeconds}
             setTotalSeconds={setTotalSeconds}
