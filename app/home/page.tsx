@@ -43,7 +43,7 @@ const ShowDetails = () => {
       setShowCheckAmount(true);
     };
     const handleBackClick = () => {
-      setShowCheckAmount(false); 
+      setShowCheckAmount(false);
     };
 
     return (
@@ -64,17 +64,17 @@ const ShowDetails = () => {
           <span className="text-xl font-bold flex flex-col items-center gap-1 mt-4">
             {totalSeconds > 0 && totalSeconds < 1 ? (
               <Toaster position="bottom-right" reverseOrder={false} />
-            ) : (
+            ) : earnedAmount > 0 ? (
               <div className="flex flex-col">
-                <p>You earned ${earnedAmount}.</p>
+                <p className="text-green-600">You earned ${earnedAmount}.</p>
                 <button
                   onClick={handleCheckHere}
-                  className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-lg mt-2"
+                  className="bg-purple-500 hover:bg-purple-700 text-white font-bold py-2 px-4 rounded-lg mt-2"
                 >
                   Check Here
                 </button>
               </div>
-            )}
+            ) : null}
           </span>
           {showCheckAmount && (
             <CheckAmount
