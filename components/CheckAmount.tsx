@@ -60,7 +60,11 @@ const CheckAmount = ({
         </div>
 
         <div className="flex-1 flex flex-row justify-center items-center m-10">
-          {showSendToWallet ? <SendToWallet /> : <TipYourWallet/>}
+          {showSendToWallet ? (
+            <SendToWallet earnedAmount={earnedAmount} />
+          ) : (
+            <TipYourWallet earnedAmount={earnedAmount} />
+          )}
         </div>
       </div>
     </div>
