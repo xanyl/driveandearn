@@ -34,6 +34,7 @@ const TipYourWallet: React.FC<TipYourWalletProps> = ({ earnedAmount }) => {
               className="border  rounded-md px-3 py-2 focus:outline-none focus:ring focus:border-blue-300"
             />
           </div>
+          
 
           <button
             type="button"
