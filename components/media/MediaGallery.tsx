@@ -10,6 +10,8 @@ import MusicPage from "@components/mediapages/MusicPage";
 import PodcastPage from "@components/mediapages/PodcastPage";
 import MovieCard from "@components/mediapages/MovieCard";
 import StoryPage from "@components/mediapages/StoryPage";
+import { useDispatch } from "react-redux";
+import { updateTotalSecond } from "@redux/earnedAmountSlice";
 
 interface MediaData {
   src: string;
@@ -42,16 +44,15 @@ const mediaData: MediaData[] = [
 
 interface MediaGalleryProps {
   totalSeconds: number;
-  setTotalSeconds: React.Dispatch<React.SetStateAction<number>>;
+  
 }
 
-const MediaGallery: React.FC<MediaGalleryProps> = ({
-  totalSeconds,
-  setTotalSeconds,
-}) => {
+const MediaGallery = () => {
   const [selectedMedia, setSelectedMedia] = useState<string | null>(null);
   const [timeStart, setTimeStart] = useState<number | null>(null);
   const [timeSpent, setTimeSpent] = useState<number>(0);
+  
+  const dispatch = useDispatch();
 
   const handleImageClick = (title: string) => {
     setTimeStart(Date.now());
@@ -63,8 +64,9 @@ const MediaGallery: React.FC<MediaGalleryProps> = ({
       const timeDifference = currentTime - timeStart;
       setTimeSpent(timeSpent + timeDifference); // Accumulate time spent on each media selection
       setTimeStart(null);
-      const totalSeconds = Math.floor((timeSpent + timeDifference) / 1000);
-      setTotalSeconds(totalSeconds);
+      const totalSeconds= Math.floor((timeSpent + timeDifference) / 1000);
+      dispatch(updateTotalSecond(totalSeconds));
+      // setTotalSeconds(totalSeconds);
     }
     setSelectedMedia(null);
   };

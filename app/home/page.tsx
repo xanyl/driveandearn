@@ -1,26 +1,38 @@
 "use client";
-import React, { useEffect, useState } from "react";
+import { Provider } from "react-redux";
+import React, { useEffect, useRef, useState } from "react";
 import { AppConfig, UserSession } from "@stacks/connect";
 
 import MediaGallery from "@components/media/MediaGallery";
 import toast, { Toaster } from "react-hot-toast";
 import CheckAmount from "@components/CheckAmount";
+import store from "@redux/store";
+import { useDispatch, useSelector } from "react-redux";
+import { setEarnedAmount, updateTotalSecond } from "@redux/earnedAmountSlice";
 
 const appConfig = new AppConfig(["store_write", "publish_data"]);
 export const userSession = new UserSession({ appConfig });
 
 const ShowDetails = () => {
+  const dispatch = useDispatch();
+  const earnedAmount = useSelector((state: any) => state.earnedAmount.value);
+  const totalSeconds = useSelector((state: any) => state.earnedAmount.totalSeconds);
+  console.log(totalSeconds);
+
   const [mounted, setMounted] = useState(false);
-  const [totalSeconds, setTotalSeconds] = useState<number>(0);
+  // const [totalSeconds, setTotalSeconds] = useState<number>(0);
   const [showCheckAmount, setShowCheckAmount] = useState(false);
+
   useEffect(() => setMounted(true), []);
+  const lastMoneyRef = useRef<number>();
 
   const calcTimeSpent = () => {
     const hours = Math.floor(totalSeconds / 3600);
     const remainingSeconds = totalSeconds % 3600;
     const minutes = Math.floor(remainingSeconds / 60);
     const seconds = remainingSeconds % 60;
-    return { hours, minutes, seconds };
+    const money = Math.floor(totalSeconds / 1);
+    return { hours, minutes, seconds, money };
   };
 
   if (mounted && userSession.isUserSignedIn()) {
@@ -37,7 +49,17 @@ const ShowDetails = () => {
         ? `You spent ${minutes} minutes and ${seconds} seconds`
         : `You spent ${hours} hours, ${minutes} minutes, and ${seconds} seconds`;
     toast(timeSpentMessage);
-    const earnedAmount = Math.floor(totalSeconds / 1);
+
+    if (calcTimeSpent().money !== lastMoneyRef.current) {
+      dispatch(setEarnedAmount(calcTimeSpent().money));
+      // setTotalSeconds(totalSeconds - (calcTimeSpent().money - earnedAmount) * 3600);
+      // Reset totalSeconds
+      
+      // dispatch(updateTotalSecond(newTime))
+      lastMoneyRef.current = calcTimeSpent().money;
+      console.log("hello"); 
+    }
+
     const handleCheckHere = () => {
       console.log(`Checked rewards for earning $${earnedAmount}`);
       setShowCheckAmount(true);
@@ -76,17 +98,12 @@ const ShowDetails = () => {
               </div>
             ) : null}
           </span>
-          {showCheckAmount && (
-            <CheckAmount
-              earnedAmount={earnedAmount}
-              onBackClick={handleBackClick}
-            />
-          )}
+          {showCheckAmount && <CheckAmount onBackClick={handleBackClick} />}
         </div>
         <div className="flex flex-wrap justify-center gap-4 mt-10">
           <MediaGallery
-            totalSeconds={totalSeconds}
-            setTotalSeconds={setTotalSeconds}
+            
+            
           />
         </div>
       </div>
@@ -106,7 +123,9 @@ export default function page() {
 
     <div className="mt-24 pt-10 flex justify-center min-h-screen">
       <div>
-        <ShowDetails />
+        <Provider store={store}>
+          <ShowDetails />
+        </Provider>
       </div>
     </div>
   );

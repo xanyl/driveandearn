@@ -2,11 +2,8 @@ import React, { useState } from "react";
 
 import { FaRegMoneyBillAlt } from "react-icons/fa";
 
-interface TipYourWalletProps {
-  earnedAmount: number;
-}
 
-const TipYourWallet: React.FC<TipYourWalletProps> = ({ earnedAmount }) => {
+const TipYourWallet = () => {
   const [tipAmount, setTipAmount] = useState("");
 
   const handleTip = () => {
@@ -19,7 +16,7 @@ const TipYourWallet: React.FC<TipYourWalletProps> = ({ earnedAmount }) => {
 
       <div className="flex flex-col items-center">
         <h2 className="text-2xl font-bold mb-4">Tip Your Driver</h2>
-        <p className="text-lg font-bold mb-2">Your current balance: ${earnedAmount}</p>
+        <p className="text-lg font-bold mb-2">Your current balance: ${}</p>
         <form className="flex flex-col gap-4">
           <div className="flex flex-col">
             <label htmlFor="tipAmount" className="text-sm text-gray-600">
