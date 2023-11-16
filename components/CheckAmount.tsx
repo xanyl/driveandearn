@@ -2,15 +2,15 @@ import React, { useState } from "react";
 import { FaRegMoneyBillAlt } from "react-icons/fa";
 import SendToWallet from "./sendmoney/sendtoyourwallet/SendToWallet";
 import TipYourWallet from "./sendmoney/tipdriver/TipYourDriver";
+import { useSelector } from 'react-redux';
 
-const CheckAmount = ({
-  earnedAmount,
-  onBackClick,
-}: {
-  earnedAmount: number;
-  onBackClick: () => void;
-}) => {
+
+const CheckAmount = ({ onBackClick }: { onBackClick: () => void }) => {
   const [showSendToWallet, setShowSendToWallet] = useState(true);
+   
+  const reduxEarnedAmount = useSelector(
+    (state: any) => state.earnedAmount.value
+  );
 
   const handleSendToWallet = () => {
     setShowSendToWallet(true);
@@ -37,7 +37,7 @@ const CheckAmount = ({
 
           <div className="flex-1 flex justify-end items-center gap-4 px-4">
             <p className="text-xl text-green-600 flex items-center gap-2 ">
-              <FaRegMoneyBillAlt /> {earnedAmount}
+              <FaRegMoneyBillAlt /> {reduxEarnedAmount}
             </p>
             <div className="flex flex-row gap-4">
               {showSendToWallet ? (
@@ -52,7 +52,7 @@ const CheckAmount = ({
                   onClick={handleSendToWallet}
                   className="bg-blue-500 hover:bg-blue-700 text-white py-2 px-4 text-xl rounded-lg"
                 >
-                  Send to Your Wallet
+                  Send to Your Wallet Account
                 </button>
               )}
             </div>
@@ -60,13 +60,9 @@ const CheckAmount = ({
         </div>
 
         <div className="flex-1 flex flex-row justify-center items-center m-10">
-          {showSendToWallet ? (
-            <SendToWallet earnedAmount={earnedAmount} />
-          ) : (
-            <TipYourWallet earnedAmount={earnedAmount} />
-          )}
+          {showSendToWallet ? <SendToWallet /> : <TipYourWallet />}
         </div>
-      </div>
+      </div> 
     </div>
   );
 };
