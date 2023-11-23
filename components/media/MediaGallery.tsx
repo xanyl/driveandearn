@@ -4,7 +4,7 @@ media card is selected, a modal is displayed with the corresponding media compon
 MusicPage, PodcastPage, etc.). The component keeps track of the time spent on each media selection
 and updates the `totalSeconds` state passed as a prop. The component also includes event handlers
 for closing the modal and submitting the form within the media component. */
-import { useEffect, useState } from "react"; // Replace with your actual MusicComponent
+import React, { useEffect, useState } from "react"; // Replace with your actual MusicComponent
 import MediaCard from "./MediaCard";
 import MusicPage from "@components/mediapages/MusicPage";
 import PodcastPage from "@components/mediapages/PodcastPage";
@@ -43,30 +43,36 @@ const mediaData: MediaData[] = [
 ];
 
 interface MediaGalleryProps {
-  totalSeconds: number;
-  
+  reset: boolean;
 }
 
-const MediaGallery = () => {
+const MediaGallery: React.FC<MediaGalleryProps> = ({ reset }) => {
   const [selectedMedia, setSelectedMedia] = useState<string | null>(null);
   const [timeStart, setTimeStart] = useState<number | null>(null);
   const [timeSpent, setTimeSpent] = useState<number>(0);
-  
+  // const totalSeconds = useSelector((state: any) => state.earnedAmount.totalSeconds);
+
   const dispatch = useDispatch();
 
   const handleImageClick = (title: string) => {
     setTimeStart(Date.now());
     setSelectedMedia(title);
   };
+
   const closeModal = () => {
     if (timeStart !== null) {
       const currentTime = Date.now();
       const timeDifference = currentTime - timeStart;
       setTimeSpent(timeSpent + timeDifference); // Accumulate time spent on each media selection
       setTimeStart(null);
-      const totalSeconds= Math.floor((timeSpent + timeDifference) / 1000);
+      const totalSeconds = Math.floor((timeSpent + timeDifference) / 1000);
       dispatch(updateTotalSecond(totalSeconds));
+
       // setTotalSeconds(totalSeconds);
+    }
+    if(reset){
+      setTimeSpent(0);
+      
     }
     setSelectedMedia(null);
   };
@@ -84,9 +90,14 @@ const MediaGallery = () => {
       }, 1000);
     }
 
-    return () => clearInterval(timer); // Clean up the interval when the component unmounts
+    return () => {
+      clearInterval(timer)
+      
+    }; // Clean up the interval when the component unmounts
   }, [selectedMedia, timeStart, timeSpent]);
-
+ 
+    
+ 
   const handleSubmit = () => {
     // Perform actions on submitting the form within MusicPage
     closeModal();

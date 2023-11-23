@@ -16,7 +16,10 @@ export const userSession = new UserSession({ appConfig });
 const ShowDetails = () => {
   const dispatch = useDispatch();
   const earnedAmount = useSelector((state: any) => state.earnedAmount.value);
-  const totalSeconds = useSelector((state: any) => state.earnedAmount.totalSeconds);
+  const totalSeconds = useSelector(
+    (state: any) => state.earnedAmount.totalSeconds
+  );
+  const [resetMediaGallery, setResetMediaGallery] = useState(false);
   console.log(totalSeconds);
 
   const [mounted, setMounted] = useState(false);
@@ -31,7 +34,9 @@ const ShowDetails = () => {
     const remainingSeconds = totalSeconds % 3600;
     const minutes = Math.floor(remainingSeconds / 60);
     const seconds = remainingSeconds % 60;
+    console.log(totalSeconds);
     const money = Math.floor(totalSeconds / 1);
+    console.log(money);
     return { hours, minutes, seconds, money };
   };
 
@@ -54,10 +59,10 @@ const ShowDetails = () => {
       dispatch(setEarnedAmount(calcTimeSpent().money));
       // setTotalSeconds(totalSeconds - (calcTimeSpent().money - earnedAmount) * 3600);
       // Reset totalSeconds
-      
+
       // dispatch(updateTotalSecond(newTime))
       lastMoneyRef.current = calcTimeSpent().money;
-      console.log("hello"); 
+      console.log("hello");
     }
 
     const handleCheckHere = () => {
@@ -77,9 +82,9 @@ const ShowDetails = () => {
           <p className="font-bold">
             mainnet: {userSession.loadUserData().profile.stxAddress.mainnet}
           </p>
-          <p className="font-bold">
+          {/* <p className="font-bold">
             testnet: {userSession.loadUserData().profile.stxAddress.testnet}
-          </p>
+          </p> */}
         </div>
         <div className="flex flex-col justify-center items-center pt-10 text-3xl font-bold">
           <p>How would you like to be entertained?</p>
@@ -98,13 +103,15 @@ const ShowDetails = () => {
               </div>
             ) : null}
           </span>
-          {showCheckAmount && <CheckAmount onBackClick={handleBackClick} />}
+          {showCheckAmount && (
+            <CheckAmount
+              onResetMediaGallery={() => setResetMediaGallery(true)}
+               onBackClick={handleBackClick}
+            />
+          )}
         </div>
         <div className="flex flex-wrap justify-center gap-4 mt-10">
-          <MediaGallery
-            
-            
-          />
+          <MediaGallery reset={resetMediaGallery} />
         </div>
       </div>
     );
